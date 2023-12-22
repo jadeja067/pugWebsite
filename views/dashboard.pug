@@ -1,0 +1,11 @@
+doctype html 
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Login 
+  body
+    p#res(style="display: none") #{response}
+    script.
+        const p = document.getElementById('res').innerText
+        if(p == 'false') window.location = "/"; 
