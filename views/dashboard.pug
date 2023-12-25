@@ -6,6 +6,7 @@ html(lang="en")
     title Login 
   body
     p#res(style="display: none") #{response}
+    h1 DashBoard
     script.
         const p = document.getElementById('res').innerText
-        if(p == 'false') window.location = "/"; 
+        //- if(!p || p == 'false') window.location = "/login"; 
