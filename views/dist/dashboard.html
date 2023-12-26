@@ -1,47 +1,57 @@
-doctype html 
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    title Dashboard
-    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous")
-    script(src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js' integrity='sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB' crossorigin='anonymous')
-    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js' integrity='sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13' crossorigin='anonymous')
-
-  body
-    p#res(style="display: none") #{response}
-    .w-100.h-auto.p-4.d-flex.align-items-center.position-relative
-      h1.w-100.text-center.px-3  My Todos
-      .d-flex.align-items-center.justify-content-end.position-absolute(style="right: 10px")
-        // Button trigger modal
-        button#openModal.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal') Add new
-        #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
-          .modal-dialog.modal-dialog-centered
-            .modal-content
-              .modal-header
-                h5#exampleModalLabel.modal-title Add New Todo
-                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
-              .positon-relative
-                .w-100.d-flex.justify-content-center.align-items-center.flex-column.gap-3.p-4
-                  .form-floating.d-flex.w-100
-                    input#title.form-control.w-100(type='text' name="title" placeholder='title' required minlength="4")
-                    label(for='title') Title
-                  .form-floating.w-100
-                    textarea#task.form-control(style="padding-right: 70px" name="task" placeholder='task' required minlength="4")
-                    label(for='task') Task
-                .w-100.p-2.border-top.d-flex.justify-content-end.align-items-center.gap-3.py-4
-                  button#add.btn.btn-primary(type='button' onclick='addTodo()' data-bs-dismiss='modal') Add
-                  button#update.btn.btn-primary.d-none(type='button' data-bs-dismiss='modal') Update
-                  button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close 
-    #container.w-100.d-flex.justify-content-center.align-items-center.flex-wrap.gap-3 
-
-    script.
+<!DOCTYPE html >
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <p id="res" style="display: none"></p>
+    <div class="w-100 h-auto p-4 d-flex align-items-center position-relative">
+      <h1 class="w-100 text-center px-3"> My Todos</h1>
+      <div class="d-flex align-items-center justify-content-end position-absolute" style="right: 10px">
+        <!-- Button trigger modal-->
+        <button class="btn btn-primary" id="openModal" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Add new</button>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Todo</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="positon-relative">
+                <div class="w-100 d-flex justify-content-center align-items-center flex-column gap-3 p-4">
+                  <div class="form-floating d-flex w-100">
+                    <input class="form-control w-100" id="title" type="text" name="title" placeholder="title" required="required" minlength="4"/>
+                    <label for="title">Title</label>
+                  </div>
+                  <div class="form-floating w-100">
+                    <textarea class="form-control" id="task" style="padding-right: 70px" name="task" placeholder="task" required="required" minlength="4"></textarea>
+                    <label for="task">Task</label>
+                  </div>
+                </div>
+                <div class="w-100 p-2 border-top d-flex justify-content-end align-items-center gap-3 py-4">
+                  <button class="btn btn-primary" id="add" type="button" onclick="addTodo()" data-bs-dismiss="modal">Add</button>
+                  <button class="btn btn-primary d-none" id="update" type="button" data-bs-dismiss="modal">Update</button>
+                  <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-100 d-flex justify-content-center align-items-center flex-wrap gap-3" id="container"> </div>
+    <script>
       const p = document.getElementById('res').innerText
       if(!p || p == 'false') window.location = "/login"; 
       
       const title  = document.getElementById('title'),
       task = document.getElementById('task')
-
+      
       const addTodo = async () =>{
         const Data = {
           title : title.value,
@@ -151,3 +161,6 @@ html(lang="en")
         }
       }
       getTodos()
+    </script>
+  </body>
+</html>
