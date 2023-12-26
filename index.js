@@ -97,7 +97,6 @@ app.get("/todos", (req, res) => {
 });
 
 app.get("/todo/:id", (req, res) => {
-  console.log(req.params.id);
   db.collection("todos")
     .findOne({ _id: new ObjectId(req.params.id) })
     .then((d) => res.json(d))

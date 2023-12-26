@@ -177,7 +177,6 @@ app.get("/todos", function (req, res) {
   });
 });
 app.get("/todo/:id", function (req, res) {
-  console.log(req.params.id);
   db.collection("todos").findOne({
     _id: new ObjectId(req.params.id)
   }).then(function (d) {
