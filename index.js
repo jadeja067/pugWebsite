@@ -86,8 +86,6 @@ app.patch("/user/:id", async (req, res) => {
   }
 });
 
-
-
 // Todo CRUD Starting
 app.get("/todos", (req, res) => {
   const result = [];
