@@ -16,7 +16,7 @@ html(lang="en")
       button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')
 
     .d-flex.justify-content-center.align-items-center.w-100(style="height:100dvh")
-      form(method="post" action="/dashboard").d-flex.justify-content-center.align-items-center.flex-column.w-lg-50.w-75.gap-3.border.px-4.py-5.rounded
+      .d-flex.justify-content-center.align-items-center.flex-column.w-lg-50.w-75.gap-3.border.px-4.py-5.rounded
         .w-100.d-flex.justify-content-between.align-items-center
           h1 Log In
           a(href="/register") Register Now
@@ -28,16 +28,39 @@ html(lang="en")
           label(for='password') Password
           span#show.bg-transparent.border-0.position-absolute.top-0.end-0.h-100.d-flex.justify-content-center.align-items-center.px-3(onclick='show()' style="cursor: pointer") show
         .w-100 
-          input#submit.py-2.rounded.btn-primary.w-100(type="submit" value="Submit")
+          input#submit.py-2.rounded.btn-primary.w-100(type="button" onclick="login()" value="Submit")
 
     script.
       const Alert = document.getElementById('Alert'),
       res = document.getElementById('response').innerText
       if(res == 'false') Alert.classList.add('show')
-      
+
       const password = document.getElementById('password'),
-      showBtn = document.getElementById('show')      
+      username = document.getElementById('username'),
+      showBtn = document.getElementById('show')     
+
+      //- Password Show/hide Toggle Function 
       function show(){
         password.type = password.type == "text" ? "password" : "text"
         showBtn.innerText = password.type == "text" ? "hide" : "show"
+      }
+
+      //- Login Checking Function
+      async function login(){
+        const Data = {
+          username: username.value,
+          password: password.value
+        }
+        const req = await fetch('/login',{
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(Data)
+        })
+        const res = await req.json()
+        if(res._id) {
+          localStorage.setItem("id", res._id);
+          window.location.href = "/dashboard"
+        }
       }

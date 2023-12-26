@@ -36,14 +36,15 @@ app.get("/dashboard", (req, res) => {
 // Rendering Pages Over
 
 // login
-app.post("/dashboard", (req, res) => {
-  db.collection("Db")
-    .findOne({ username: req.body.username, password: req.body.password })
-    .then((data) => {
-      if (!data) res.render("index", { response: false });
-      else res.render("dashboard", { response: true });
-    })
-    .catch((e) => console.log(e));
+app.post("/login", async (req, res) => {
+  try{
+    const request = await db
+    .collection("Db")
+    .findOne({ username: req.body.username, password: req.body.password });
+    await res.json(request);
+  }catch(e){ 
+    res.json(e)
+  }
 });
 
 // Register
@@ -60,6 +61,31 @@ app.post("/register", (req, res) => {
     .catch((e) => console.log(e));
 });
 
+// Get Profile Details
+app.get("/user/:id", async (req, res) => {
+  try{
+    const request = await db
+    .collection("Db")
+    .findOne({ _id: new ObjectId(req.params.id) });
+    await res.json(request);
+  }catch(e){ 
+    res.json(e)
+  }
+});
+
+// Update Profile Details
+app.patch("/user/:id", async (req, res) => {
+  console.log(req.body)
+  try{
+    const request = await db
+    .collection("Db")
+    .updateOne({ _id: new ObjectId(req.params.id) }, {$set: req.body});
+    await res.json(request);
+  }catch(e){ 
+    res.json(e)
+  }
+});
+
 // Todo CRUD Starting
 app.get("/todos", (req, res) => {
   const result = [];
@@ -71,35 +97,34 @@ app.get("/todos", (req, res) => {
 });
 
 app.get("/todo/:id", (req, res) => {
-  console.log(req.params.id)
+  console.log(req.params.id);
   db.collection("todos")
-    .findOne({_id: new ObjectId(req.params.id)})
+    .findOne({ _id: new ObjectId(req.params.id) })
     .then((d) => res.json(d))
     .catch((e) => console.log(e));
 });
 
 app.post("/addtodo", async (req, res) => {
-  try{
-    const newTodo = await db.collection("todos")
-    .insertOne(req.body)
-    await res.json(newTodo)
-  }catch(e){
-    res.json(e)
+  try {
+    const newTodo = await db.collection("todos").insertOne(req.body);
+    await res.json(newTodo);
+  } catch (e) {
+    res.json(e);
   }
 });
 
 app.patch("/todo/:id", (req, res) => {
-  console.log(req.params.id)
+  console.log(req.params.id);
   db.collection("todos")
-    .updateOne({_id: new ObjectId(req.params.id)}, {$set: req.body})
+    .updateOne({ _id: new ObjectId(req.params.id) }, { $set: req.body })
     .then((d) => res.json(d))
     .catch((e) => console.log(e));
 });
 
 app.delete("/todo/:id", (req, res) => {
-  console.log(req.params.id)
+  console.log(req.params.id);
   db.collection("todos")
-    .deleteOne({_id: new ObjectId(req.params.id)})
+    .deleteOne({ _id: new ObjectId(req.params.id) })
     .then((d) => res.json(d))
     .catch((e) => console.log(e));
 });
