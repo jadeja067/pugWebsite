@@ -14,7 +14,7 @@
       <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <div class="d-flex justify-content-center align-items-center w-100" style="height:100dvh">
-      <form class="d-flex justify-content-center align-items-center flex-column w-lg-50 w-75 gap-3 border px-4 py-5 rounded" method="post" action="/register">
+      <form class="d-flex justify-content-center align-items-center flex-column w-lg-50 w-75 gap-3 border px-4 py-5 rounded" onsubmit="register(event)">
         <div class="w-100 d-flex justify-content-between align-items-center">
           <h1>Register</h1><a href="/login">LogIn Now</a>
         </div>
@@ -40,10 +40,32 @@
       res = document.getElementById('response').innerText
       if(res == 'true') Alert.classList.add('show')
       const password = document.getElementById('password'),
-      showBtn = document.getElementById('show'),  
+      username = document.getElementById('username'),
+      email = document.getElementById('email')
+      showBtn = document.getElementById('show')
       function show(){
           password.type = password.type == "text" ? "password" : "text"
           showBtn.innerText = password.type == "text" ? "hide" : "show"
+      }
+      async function register(e){
+        e.preventDefault()
+        const Data = {
+          username: username.value,
+          email: email.value,
+          password: password.value
+        }
+        const req = await fetch("/register",{
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(Data)
+        })
+        const res = await req.json()
+        console.log(res)
+        if(res._id) {
+          //- window.location.href = "/login"
+        }
       }
     </script>
   </body>

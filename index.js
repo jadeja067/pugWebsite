@@ -2,13 +2,11 @@ const express = require("express");
 const { connectDb, getDb } = require("./db");
 const { ObjectId } = require("mongodb");
 const cors = require('cors');
-
-
+const renderPagesRoutes = require('./routes/render/index')
+const userRoutes = require('./routes/user/index')
 // MaddleWare
 const app = express();
 app.use(express.json());
-const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "pug");
 app.use(cors())
 let db;
@@ -20,48 +18,11 @@ connectDb((e) => {
 });
 
 // Rendering Pages Start
-app.get("/", (req, res) => {
-  res.redirect("dashboard");
-});
-
-app.get("/login", (req, res) => {
-  res.render("index");
-});
-
-app.get("/register", (req, res) => {
-  res.render("register");
-});
-
-app.get("/dashboard", (req, res) => {
-  res.render("dashboard");
-});
-// Rendering Pages Over
-
-// login
-app.post("/login", async (req, res) => {
-  try{
-    const request = await db
-    .collection("Db")
-    .findOne({ username: req.body.username, password: req.body.password });
-    await res.json(request);
-  }catch(e){ 
-    res.json(e)
-  }
-});
-
+app.use(renderPagesRoutes.Router)
 // Register
-app.post("/register", (req, res) => {
-  db.collection("Db")
-    .findOne({ username: req.body.username, password: req.body.password })
-    .then((data) => {
-      let exists = false;
-      if (!data || data == null) {
-        db.collection("Db").insertOne(req.body);
-      } else exists = true;
-      res.render("register");
-    })
-    .catch((e) => console.log(e));
-});
+app.use(userRoutes.Router)
+
+app.post("/register");
 
 // Get Profile Details
 app.get("/user/:id", async (req, res) => {
