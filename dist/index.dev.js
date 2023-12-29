@@ -7,7 +7,9 @@ var _require = require("./db"),
     getDb = _require.getDb;
 
 var _require2 = require("mongodb"),
-    ObjectId = _require2.ObjectId; // MaddleWare
+    ObjectId = _require2.ObjectId;
+
+var cors = require('cors'); // MaddleWare
 
 
 var app = express();
@@ -19,11 +21,12 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.set("view engine", "pug");
+app.use(cors());
 var db;
 connectDb(function (e) {
   if (!e) {
     app.listen(5000, function () {
-      return console.log("listening...");
+      return console.log("listening... at 5000");
     });
     db = getDb();
   }

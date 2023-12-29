@@ -106,7 +106,7 @@
             body: JSON.stringify(Data)
           })
           const res = await req.json()
-          
+      
         }catch(e){
           console.log(e)
         }
@@ -149,21 +149,28 @@
       }
       
       const updateTodo = async (id) => {
+      
         const Data = {
           title : title.value,
           task : task.value 
-        }
+        },
+        update = document.getElementById('update')
+        add = document.getElementById('add')
         try{
           const req = await fetch(`/todo/${id}`, {
             method: 'PATCH',
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(Data)
+            body: JSON.stringify(Data),
           })
           const res = await req.json()
           console.log(res)
           getTodos()
+          add.classList.remove('d-none')
+          update.classList.add('d-none')
+          title.value = '' 
+          task.value = ''
         }catch(e){
           console.log(e)
         }
@@ -204,7 +211,7 @@
       
       const append = (res) => {
         const container = document.getElementById('container')
-        if(res.length > 0){
+        if(res.lengthn){
           container.innerHTML = ''
         res.forEach(e => {
           container.innerHTML += `<div id='${e._id}'class="card w-25">

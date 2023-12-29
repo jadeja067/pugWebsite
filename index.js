@@ -1,6 +1,8 @@
 const express = require("express");
 const { connectDb, getDb } = require("./db");
 const { ObjectId } = require("mongodb");
+const cors = require('cors');
+
 
 // MaddleWare
 const app = express();
@@ -8,11 +10,11 @@ app.use(express.json());
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "pug");
-
+app.use(cors())
 let db;
 connectDb((e) => {
   if (!e) {
-    app.listen(5000, () => console.log("listening..."));
+    app.listen(5000, () => console.log("listening... at 5000"));
     db = getDb();
   }
 });
