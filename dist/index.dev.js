@@ -6,9 +6,6 @@ var _require = require("./db"),
     connectDb = _require.connectDb,
     getDb = _require.getDb;
 
-var _require2 = require("mongodb"),
-    ObjectId = _require2.ObjectId;
-
 var cors = require('cors');
 
 var renderPagesRoutes = require('./routes/render/index');

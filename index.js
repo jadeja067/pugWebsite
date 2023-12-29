@@ -1,6 +1,5 @@
 const express = require("express");
 const { connectDb, getDb } = require("./db");
-const { ObjectId } = require("mongodb");
 const cors = require('cors');
 const renderPagesRoutes = require('./routes/render/index')
 const userRoutes = require('./routes/user/index')

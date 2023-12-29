@@ -32,36 +32,4 @@ html(lang="en")
           span#show.bg-transparent.border-0.position-absolute.top-0.end-0.h-100.d-flex.justify-content-center.align-items-center.px-3(onclick='show()' style="cursor: pointer") show
         .w-100 
           input#submit.py-2.rounded.btn-primary.w-100(type="submit" value="Submit")
-
-    script.
-        const Alert = document.getElementById('Alert'),
-        res = document.getElementById('response').innerText
-        if(res == 'true') Alert.classList.add('show')
-        const password = document.getElementById('password'),
-        username = document.getElementById('username'),
-        email = document.getElementById('email')
-        showBtn = document.getElementById('show')
-        function show(){
-            password.type = password.type == "text" ? "password" : "text"
-            showBtn.innerText = password.type == "text" ? "hide" : "show"
-        }
-        async function register(e){
-          e.preventDefault()
-          const Data = {
-            username: username.value,
-            email: email.value,
-            password: password.value
-          }
-          const req = await fetch("/register",{
-            method: 'POST',
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(Data)
-          })
-          const res = await req.json()
-          console.log(res)
-          if(res.insertedId) {
-            window.location.href = "/login"
-          }
-        }
+    script(src="./register" type="text/javascript")

@@ -1,8 +1,9 @@
 const sjcl = require("sjcl");
+const { ObjectId } = require("mongodb");
+
 exports.login = async (req, res) => {
   try {
     const password = sjcl.encrypt("devmonk", req.body.password);
-    console.log(password)
     const request = await db
       .collection("Db")
       .findOne({ username: req.body.username, password: req.body.password });
@@ -13,14 +14,13 @@ exports.login = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-  const password = sjcl.encrypt("devmonk", req.body.password)
+  const password = sjcl.encrypt("devmonk", req.body.password);
   try {
     const find = await db
       .collection("Db")
       .findOne({ username: req.body.username, password: req.body.password });
     if (!find) {
       const insertionRequest = await db.collection("Db").insertOne(req.body);
-      console.log(insertionRequest)
       res.json(insertionRequest);
     } else {
       res.json(find);
@@ -30,25 +30,25 @@ exports.register = async (req, res) => {
   }
 };
 
-exports.getUser =  async (req, res) => {
-  try{
+exports.getUser = async (req, res) => {
+  try {
     const request = await db
-    .collection("Db")
-    .findOne({ _id: new ObjectId(req.params.id) });
-    await res.json(request);
-  }catch(e){ 
-    res.json(e)
+      .collection("Db")
+      .findOne({ _id: new ObjectId(req.params.id) });
+    console.log(request);
+    res.json(request);
+  } catch (e) {
+    res.json(e);
   }
-}
+};
 
 exports.updateUser = async (req, res) => {
-  console.log(req.body)
-  try{
+  try {
     const request = await db
-    .collection("Db")
-    .updateOne({ _id: new ObjectId(req.params.id) }, {$set: req.body});
-    await res.json(request);
-  }catch(e){ 
-    res.json(e)
+      .collection("Db")
+      .updateOne({ _id: new ObjectId(req.params.id) }, { $set: req.body });
+    res.json(request);
+  } catch (e) {
+    res.json(e);
   }
-}
+};

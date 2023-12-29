@@ -2,6 +2,9 @@
 
 var sjcl = require("sjcl");
 
+var _require = require("mongodb"),
+    ObjectId = _require.ObjectId;
+
 exports.login = function _callee(req, res) {
   var password, request;
   return regeneratorRuntime.async(function _callee$(_context) {
@@ -10,30 +13,29 @@ exports.login = function _callee(req, res) {
         case 0:
           _context.prev = 0;
           password = sjcl.encrypt("devmonk", req.body.password);
-          console.log(password);
-          _context.next = 5;
+          _context.next = 4;
           return regeneratorRuntime.awrap(db.collection("Db").findOne({
             username: req.body.username,
             password: req.body.password
           }));
 
-        case 5:
+        case 4:
           request = _context.sent;
           res.json(request);
-          _context.next = 12;
+          _context.next = 11;
           break;
 
-        case 9:
-          _context.prev = 9;
+        case 8:
+          _context.prev = 8;
           _context.t0 = _context["catch"](0);
           res.json(_context.t0);
 
-        case 12:
+        case 11:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 9]]);
+  }, null, null, [[0, 8]]);
 };
 
 exports.register = function _callee2(req, res) {
@@ -54,7 +56,7 @@ exports.register = function _callee2(req, res) {
           find = _context2.sent;
 
           if (find) {
-            _context2.next = 13;
+            _context2.next = 12;
             break;
           }
 
@@ -63,29 +65,28 @@ exports.register = function _callee2(req, res) {
 
         case 8:
           insertionRequest = _context2.sent;
-          console.log(insertionRequest);
           res.json(insertionRequest);
-          _context2.next = 14;
+          _context2.next = 13;
           break;
 
-        case 13:
+        case 12:
           res.json(find);
 
-        case 14:
-          _context2.next = 19;
+        case 13:
+          _context2.next = 18;
           break;
 
-        case 16:
-          _context2.prev = 16;
+        case 15:
+          _context2.prev = 15;
           _context2.t0 = _context2["catch"](1);
           res.json(_context2.t0);
 
-        case 19:
+        case 18:
         case "end":
           return _context2.stop();
       }
     }
-  }, null, null, [[1, 16]]);
+  }, null, null, [[1, 15]]);
 };
 
 exports.getUser = function _callee3(req, res) {
@@ -102,10 +103,8 @@ exports.getUser = function _callee3(req, res) {
 
         case 3:
           request = _context3.sent;
-          _context3.next = 6;
-          return regeneratorRuntime.awrap(res.json(request));
-
-        case 6:
+          console.log(request);
+          res.json(request);
           _context3.next = 11;
           break;
 
@@ -128,33 +127,29 @@ exports.updateUser = function _callee4(req, res) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
-          console.log(req.body);
-          _context4.prev = 1;
-          _context4.next = 4;
+          _context4.prev = 0;
+          _context4.next = 3;
           return regeneratorRuntime.awrap(db.collection("Db").updateOne({
             _id: new ObjectId(req.params.id)
           }, {
             $set: req.body
           }));
 
-        case 4:
+        case 3:
           request = _context4.sent;
-          _context4.next = 7;
-          return regeneratorRuntime.awrap(res.json(request));
-
-        case 7:
-          _context4.next = 12;
+          res.json(request);
+          _context4.next = 10;
           break;
 
-        case 9:
-          _context4.prev = 9;
-          _context4.t0 = _context4["catch"](1);
+        case 7:
+          _context4.prev = 7;
+          _context4.t0 = _context4["catch"](0);
           res.json(_context4.t0);
 
-        case 12:
+        case 10:
         case "end":
           return _context4.stop();
       }
     }
-  }, null, null, [[1, 9]]);
+  }, null, null, [[0, 7]]);
 };
