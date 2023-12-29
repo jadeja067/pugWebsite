@@ -19,7 +19,8 @@ var app = express();
 app.use(express.json());
 app.set("view engine", "pug");
 app.use(express["static"]('scripts'));
-app.use(cors());
+app.use(cors()); // connection
+
 var db;
 connectDb(function (e) {
   if (!e) {

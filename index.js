@@ -10,6 +10,7 @@ app.use(express.json());
 app.set("view engine", "pug");
 app.use(express.static('scripts'))
 app.use(cors())
+// connection
 let db;
 connectDb((e) => {
   if (!e) {
