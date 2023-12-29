@@ -4,18 +4,21 @@ const cors = require('cors');
 const renderPagesRoutes = require('./routes/render/index')
 const userRoutes = require('./routes/user/index')
 const TodoRouter  = require("./routes/todos/index")
-// MaddleWare
 const app = express();
+let db;
+
+// MaddleWare
 app.use(express.json());
 app.set("view engine", "pug");
 app.use(express.static('scripts'))
 app.use(cors())
+
 // connection
-let db;
 connectDb((e) => {
   if (!e) {
     app.listen(7000, () => console.log("listening... at 5000"));
     db = getDb();
+    console.log("db connection", db);
   }
 });
 

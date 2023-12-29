@@ -23,20 +23,20 @@ html(lang="en")
                 h5#exampleModalLabel.modal-title Profile
                 button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
               .positon-relative
-                .w-100.d-flex.justify-content-center.align-items-center.flex-column.gap-3.p-4
+                form(onsubmit="UpdateUser(event)").w-100.d-flex.justify-content-center.align-items-center.flex-column.gap-3.p-4
                   .form-floating.d-flex.w-100
-                    input#username.form-control.w-100(type='text' name="username" placeholder='username' required minlength="4" autocomplete)
+                    input#username.form-control.w-100(type='text' name="username" placeholder='username' required minlength="4" autocomplete required)
                     label(for='username') Username
                   .form-floating.w-100
-                    input#email.form-control(type="email" style="padding-right: 70px" name="email" placeholder='email' required minlength="4" autocomplete)
+                    input#email.form-control(type="email" style="padding-right: 70px" name="email" placeholder='email' required minlength="4" autocomplete required)
                     label(for='email') E-mail
                   .form-floating.w-100
-                    input#password.form-control(type="password" style="padding-right: 70px" name="password" placeholder='password' required minlength="4")
+                    input#password.form-control(type="password" style="padding-right: 70px" name="password" placeholder='password' required minlength="4" required)
                     label(for='password') Password
                 .w-100.p-2.border-top.d-flex.justify-content-end.align-items-center.gap-3.py-4
-                  button#updateuser.btn.btn-primary(type='button' onclick='UpdateUser()' data-bs-dismiss='modal') update
-                  button#signout.btn.btn-danger(type='button' data-bs-dismiss='modal' onclick="signOut()") Sign Out
-                  button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Cancel
+                  button#updateuser.btn.btn-primary(type='submit' data-bs-dismiss='modal') update
+                  span#signout.btn.btn-danger(data-bs-dismiss='modal' onclick="signOut()") Sign Out
+                  sapn.btn.btn-secondary(data-bs-dismiss='modal') Cancel
         button#openModal2.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal2') Add new
         #exampleModal2.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
           .modal-dialog.modal-dialog-centered
@@ -45,15 +45,15 @@ html(lang="en")
                 h5#exampleModalLabel.modal-title Add New Todo
                 button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
               .positon-relative
-                .w-100.d-flex.justify-content-center.align-items-center.flex-column.gap-3.p-4
+                form(onsubmit='addTodo(event)').w-100.d-flex.justify-content-center.align-items-center.flex-column.gap-3.p-4
                   .form-floating.d-flex.w-100
-                    input#title.form-control.w-100(type='text' name="title" placeholder='title' required minlength="4")
+                    input#title.form-control.w-100(type='text' name="title" placeholder='title' required minlength="4" required)
                     label(for='title') Title
                   .form-floating.w-100
-                    textarea#task.form-control(style="padding-right: 70px" name="task" placeholder='task' required minlength="4")
+                    textarea#task.form-control(style="padding-right: 70px" name="task" placeholder='task' required minlength="4" required)
                     label(for='task') Task
                 .w-100.p-2.border-top.d-flex.justify-content-end.align-items-center.gap-3.py-4
-                  button#add.btn.btn-primary(type='button' onclick='addTodo()' data-bs-dismiss='modal') Add
+                  button#add.btn.btn-primary(type='button'  data-bs-dismiss='modal') Add
                   button#update.btn.btn-primary.d-none(type='button' data-bs-dismiss='modal') Update
                   button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close 
     #container.w-100.d-flex.justify-content-center.align-items-center.flex-wrap.gap-3 

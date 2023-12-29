@@ -8,7 +8,8 @@ const title = document.getElementById("title"),
   email = document.getElementById("email"),
   password = document.getElementById("password");
 
-async function UpdateUser() {
+async function UpdateUser(e) {
+  e.preventDefault()
   const Data = {
     username: username.value,
     email: email.value,
@@ -44,7 +45,8 @@ const signOut = () => {
   localStorage.removeItem("id");
   window.location.href = "/login";
 };
-const addTodo = async () => {
+const addTodo = async (e) => {
+  e.preventDefault()
   const Data = {
     title: title.value,
     task: task.value,

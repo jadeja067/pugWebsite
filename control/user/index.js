@@ -35,7 +35,6 @@ exports.getUser = async (req, res) => {
     const request = await db
       .collection("Db")
       .findOne({ _id: new ObjectId(req.params.id) });
-    console.log(request);
     res.json(request);
   } catch (e) {
     res.json(e);
