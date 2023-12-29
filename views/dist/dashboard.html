@@ -244,6 +244,7 @@
         try{
           const req = await fetch('/todos')
           const res = await req.json()
+          console.log(res)
           await append(res)
         }catch(e){
           console.log(e)

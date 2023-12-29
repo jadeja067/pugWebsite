@@ -63,8 +63,8 @@
         })
         const res = await req.json()
         console.log(res)
-        if(res._id) {
-          //- window.location.href = "/login"
+        if(res.insertedId) {
+          window.location.href = "/login"
         }
       }
     </script>
